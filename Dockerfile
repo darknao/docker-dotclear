@@ -7,7 +7,8 @@ RUN set -x; \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
         libpng12-dev \
-        rsync
+        rsync \
+    && rm -r /var/lib/apt/lists/*
 
 RUN docker-php-ext-install mbstring pgsql mysqli \
     && docker-php-ext-configure gd \
@@ -16,29 +17,30 @@ RUN docker-php-ext-install mbstring pgsql mysqli \
         --with-png-dir=/usr/include/ \
     && docker-php-ext-install gd
 
-RUN rm /var/www/html/index.html
-ADD dotclear-2.8.tar.gz /tmp/
-
 RUN mkdir -p \
     /var/www/dotclear/public \
     /var/www/dotclear/plugins \
     /var/www/dotclear/themes
 
-RUN mv /tmp/dotclear/* /var/www/html/
-RUN mv /var/www/html/themes /var/www/html/themes_ori \
+ENV DOTCLEAR_VERSION 2.8
+
+RUN rm /var/www/html/*; \
+    curl -SL http://download.dotclear.org/latest/dotclear-${DOTCLEAR_VERSION}.tar.gz \
+    | tar -xazC /var/www/html --strip-components=2 \
+    && mv /var/www/html/themes /var/www/html/themes_ori \
     && mv /var/www/html/plugins /var/www/html/plugins_ori \
-    && rm -r /var/www/html/public
-RUN ln -s /var/www/dotclear/public /var/www/html/public \
+    && rm -r /var/www/html/public \
+    && ln -s /var/www/dotclear/public /var/www/html/public \
     && ln -s /var/www/dotclear/plugins /var/www/html/plugins \
     && ln -s /var/www/dotclear/themes /var/www/html/themes
-RUN rm -rf /tmp/dotclear
 
-RUN sed -i 's|dirname(__FILE__)|"/var/www/html/inc/"|g' /var/www/html/inc/config.php.in
-RUN ln -s /var/www/dotclear/config.php /var/www/html/inc/config.php
+RUN sed -i 's|dirname(__FILE__)|"/var/www/html/inc/"|g' /var/www/html/inc/config.php.in \
+    && ln -s /var/www/dotclear/config.php /var/www/html/inc/config.php
 
-RUN chown -R www-data:www-data /var/www/html /var/www/dotclear
-RUN chmod 775  /var/www/html/cache /var/www/dotclear/public
+RUN chown -R www-data:www-data /var/www/html /var/www/dotclear \
+    && chmod 775  /var/www/html/cache /var/www/dotclear/public
 
+VOLUME /var/www/dotclear
 
 ADD docker-entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
