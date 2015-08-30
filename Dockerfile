@@ -17,6 +17,8 @@ RUN docker-php-ext-install mbstring pgsql mysqli \
         --with-png-dir=/usr/include/ \
     && docker-php-ext-install gd
 
+RUN a2enmod rewrite
+
 RUN mkdir -p \
     /var/www/dotclear/public \
     /var/www/dotclear/plugins \
@@ -35,7 +37,10 @@ RUN rm /var/www/html/*; \
     && ln -s /var/www/dotclear/themes /var/www/html/themes
 
 RUN sed -i 's|dirname(__FILE__)|"/var/www/html/inc/"|g' /var/www/html/inc/config.php.in \
-    && ln -s /var/www/dotclear/config.php /var/www/html/inc/config.php
+    && ln -s /var/www/dotclear/config.php /var/www/html/inc/config.php \
+    && touch /var/www/dotclear/.htaccess \
+    && chmod 400 /var/www/dotclear/.htaccess \
+    && ln -s /var/www/dotclear/.htaccess /var/www/html/.htaccess
 
 RUN chown -R www-data:www-data /var/www/html /var/www/dotclear \
     && chmod 775  /var/www/html/cache /var/www/dotclear/public
