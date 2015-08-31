@@ -25,10 +25,14 @@ RUN mkdir -p \
     /var/www/dotclear/themes
 
 ENV DOTCLEAR_VERSION 2.7.5
+ENV DOTCLEAR_DOWNLOAD_URL http://download.dotclear.org/attic/dotclear-${DOTCLEAR_VERSION}.tar.gz
+ENV DOTCLEAR_DOWNLOAD_MD5 c319c09440a38aee361f344598553c67
 
 RUN rm /var/www/html/*; \
-    curl -SL http://download.dotclear.org/attic/dotclear-${DOTCLEAR_VERSION}.tar.gz \
-    | tar -xazC /var/www/html --strip-components=2 \
+    curl -fsSL -o dotclear.tar.gz "$DOTCLEAR_DOWNLOAD_URL" \
+    && echo "$DOTCLEAR_DOWNLOAD_MD5 dotclear.tar.gz" | md5sum -c - \
+    && tar -xzf dotclear.tar.gz -C /var/www/html --strip-components=2 \
+    && rm dotclear.tar.gz \
     && mv /var/www/html/themes /var/www/html/themes_ori \
     && mv /var/www/html/plugins /var/www/html/plugins_ori \
     && rm -r /var/www/html/public \
