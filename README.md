@@ -6,32 +6,40 @@
 -	[`2.5-fpm` (*fpm/2.5/Dockerfile*)](https://github.com/darknao/docker-dotclear/blob/master/fpm/2.5/Dockerfile)
 
 # What is Dotclear? #
-Dotclear is an open source blog publishing application.
+Dotclear is an open source blog publishing application distributed under the GNU GPLv2.
+
+It's proposed aim is to develop a software that fully respects web standards based on open source solutions, with multilingual interface and publishing capabilities. It is written in PHP.
 
 http://dotclear.org
+
+![dotclear_logo](https://cloud.githubusercontent.com/assets/693402/9613090/a7454250-50e9-11e5-92a5-0ad55dc5a8af.png)
 
 # How to use this image #
     docker run --name blog --link db_container:db -p 80:80 -d darknao/dotclear
 
 You will need a database container using mysql or postgresql, with an already created database/user.
 
-Blog data (media/plugins/themes/settings) are stored in a volume on /var/www/dotclear.
+Dotclear data are stored in a volume on **/var/www/html**.
 
-On first run, you'll get a configuration wizard to set your database settings.
+On the first run, you'll get a configuration wizard to set your database settings and create your config.php.
 
-Theses settings are saved in the /var/www/dotclear volume, and will be used afterwards.
-
-## FPM variant ##
-You can use [this configuration file](https://github.com/darknao/docker-dotclear/blob/master/fpm/fpm.conf) with nginx as an exemple for a quick try.
+# FPM variant #
+You can use [this configuration file](https://github.com/darknao/docker-dotclear/blob/master/fpm/fpm.conf) with nginx, for example.
 
 Start the fpm container:
 
     docker run --link mysqldb -d --name blog_fpm darknao/dotclear:2.8-fpm
-Start nginx with a link with the fpm container (notice the fpm alias, it'll be used in the fpm.conf):
+Start nginx with a link to the fpm container (notice the **fpm** alias, it'll be used in the **fpm.conf**):
 
-    docker run --link blog_fpm:fpm -d --name blog_nginx -v $(pwd)/fpm.conf:/etc/nginx/conf.d/default.conf:ro --volumes-from blog_fpm -p 80:80 nginx
+    docker run -d -p 80:80 \
+     --link blog_fpm:fpm \
+     --name blog_nginx \
+     -v $(pwd)/fpm.conf:/etc/nginx/conf.d/default.conf:ro \
+     --volumes-from blog_fpm  nginx
     
 # Dotclear upgrade #
-Upgrade should be as easy as that:
-    docker run --volumes-from old_dotclear --link db_container -p 80:80 -d darknao/dotclear:latest
+Upgrade *should* happen automagically if you run an up to date image on an existing volume:
+
+    docker run --volumes-from old_blog --link database -p 80:80 -d darknao/dotclear:latest
+
 

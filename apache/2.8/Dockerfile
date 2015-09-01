@@ -19,10 +19,7 @@ RUN docker-php-ext-install mbstring pgsql mysqli \
 
 RUN a2enmod rewrite
 
-#RUN mkdir -p \
-#    /var/www/dotclear/public \
-#    /var/www/dotclear/plugins \
-#    /var/www/dotclear/themes
+VOLUME /var/www/html
 
 ENV DOTCLEAR_VERSION 2.8
 ENV DOTCLEAR_DOWNLOAD_URL http://download.dotclear.org/latest/dotclear-${DOTCLEAR_VERSION}.tar.gz
@@ -37,16 +34,6 @@ RUN mkdir -p /usr/src/dotclear \
     && chmod -R 755 /usr/src/dotclear/public /usr/src/dotclear/cache \
     && rm -f /var/www/html/*
 
-#RUN sed -i 's|dirname(__FILE__)|"/var/www/html/inc/"|g' /var/www/html/inc/config.php.in \
-#    && ln -s /var/www/dotclear/config.php /var/www/html/inc/config.php \
-#    && touch /var/www/dotclear/.htaccess \
-#    && chmod 400 /var/www/dotclear/.htaccess \
-#    && ln -s /var/www/dotclear/.htaccess /var/www/html/.htaccess
-
-#RUN chown -R www-data:www-data /var/www/html /var/www/dotclear \
-#    && chmod 775  /var/www/html/cache /var/www/dotclear/public
-
-VOLUME /var/www/html
 
 ADD docker-entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
