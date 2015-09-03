@@ -1,0 +1,25 @@
+nginx:
+    image: nginx
+    links:
+     - dotclear:fpm
+    volumes:
+     - ./fpm/fpm.conf:/etc/nginx/conf.d/default.conf:ro
+    volumes_from:
+     - blog_data
+    ports:
+     - "8105:80"
+    restart: always
+
+mysql:
+    image: mysql
+    volumes_from:
+     - mysql_data
+    restart: always
+
+dotclear:
+    image: darknao/dotclear:fpm
+    links:
+     - mysql:mysqldb
+    volumes_from:
+     - blog_data
+    restart: always
