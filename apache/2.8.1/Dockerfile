@@ -21,9 +21,9 @@ RUN a2enmod rewrite
 
 VOLUME /var/www/html
 
-ENV DOTCLEAR_VERSION 2.8
-ENV DOTCLEAR_DOWNLOAD_URL http://download.dotclear.org/attic/dotclear-${DOTCLEAR_VERSION}.tar.gz
-ENV DOTCLEAR_DOWNLOAD_MD5 06b0d2c3b631083a243ddf8dc77da1ea
+ENV DOTCLEAR_VERSION 2.8.1
+ENV DOTCLEAR_DOWNLOAD_URL http://download.dotclear.org/latest/dotclear-${DOTCLEAR_VERSION}.tar.gz
+ENV DOTCLEAR_DOWNLOAD_MD5 5caca3048e4023068192a5472570b193
 
 RUN mkdir -p /usr/src/dotclear \
     && curl -fsSL -o dotclear.tar.gz "$DOTCLEAR_DOWNLOAD_URL" \

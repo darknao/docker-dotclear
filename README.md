@@ -1,7 +1,9 @@
 # Supported tags and respective `Dockerfile` links #
 
--	[`2.8-apache`, `2.8`, `apache`, `latest` (*apache/2.8/Dockerfile*)](https://github.com/darknao/docker-dotclear/blob/master/apache/2.8/Dockerfile)
+-       [`2.8.1`, `apache`, `latest` (*apache/2.8.1/Dockerfile*)](https://github.com/darknao/docker-dotclear/blob/master/apache/2.8.1/Dockerfile)
+-	[`2.8-apache`, `2.8` (*apache/2.8/Dockerfile*)](https://github.com/darknao/docker-dotclear/blob/master/apache/2.8/Dockerfile)
 -	[`2.7.5-apache`, `2.7.5` (*apache/2.7.5/Dockerfile*)](https://github.com/darknao/docker-dotclear/blob/master/apache/2.7.5/Dockerfile)
+-       [`2.8.1-fpm`, `fpm` (*fpm/2.8.1/Dockerfile*)](https://github.com/darknao/docker-dotclear/blob/master/fpm/2.8.1/Dockerfile)
 -	[`2.8-fpm`, `fpm` (*fpm/2.8/Dockerfile*)](https://github.com/darknao/docker-dotclear/blob/master/fpm/2.8/Dockerfile)
 -	[`2.5-fpm` (*fpm/2.5/Dockerfile*)](https://github.com/darknao/docker-dotclear/blob/master/fpm/2.5/Dockerfile)
 
@@ -28,7 +30,7 @@ You can use [this configuration file](https://github.com/darknao/docker-dotclear
 
 Start the fpm container:
 
-    docker run --link mysqldb -d --name blog_fpm darknao/dotclear:2.8-fpm
+    docker run --link mysqldb -d --name blog_fpm darknao/dotclear:2.8.1-fpm
 Start nginx with a link to the fpm container (notice the **fpm** alias, it'll be used in the **fpm.conf**):
 
     docker run -d -p 80:80 \
