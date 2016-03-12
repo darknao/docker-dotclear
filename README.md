@@ -1,11 +1,11 @@
 # Supported tags and respective `Dockerfile` links #
 
--       [`2.8.1`, `apache`, `latest` (*apache/2.8.1/Dockerfile*)](https://github.com/darknao/docker-dotclear/blob/master/apache/2.8.1/Dockerfile)
--	[`2.8-apache`, `2.8` (*apache/2.8/Dockerfile*)](https://github.com/darknao/docker-dotclear/blob/master/apache/2.8/Dockerfile)
--	[`2.7.5-apache`, `2.7.5` (*apache/2.7.5/Dockerfile*)](https://github.com/darknao/docker-dotclear/blob/master/apache/2.7.5/Dockerfile)
--       [`2.8.1-fpm`, `fpm` (*fpm/2.8.1/Dockerfile*)](https://github.com/darknao/docker-dotclear/blob/master/fpm/2.8.1/Dockerfile)
--	[`2.8-fpm`, `fpm` (*fpm/2.8/Dockerfile*)](https://github.com/darknao/docker-dotclear/blob/master/fpm/2.8/Dockerfile)
--	[`2.5-fpm` (*fpm/2.5/Dockerfile*)](https://github.com/darknao/docker-dotclear/blob/master/fpm/2.5/Dockerfile)
+-       [`2.9`, `apache`, `latest` (*apache/2.9/Dockerfile*)](https://github.com/darknao/docker-dotclear/blob/master/apache/2.9/Dockerfile)
+-       [`2.8-apache`, `2.8.2`, `2.8` (*apache/2.8.2/Dockerfile*)](https://github.com/darknao/docker-dotclear/blob/master/apache/2.8.2/Dockerfile)
+-	[`2.8.1-apache`, `2.8.1` (*apache/2.8/Dockerfile*)](https://github.com/darknao/docker-dotclear/blob/master/apache/2.8/Dockerfile)
+-       [`2.9-fpm`, `fpm` (*fpm/2.9/Dockerfile*)](https://github.com/darknao/docker-dotclear/blob/master/fpm/2.9/Dockerfile)
+-       [`2.8.2-fpm` (*fpm/2.8.2/Dockerfile*)](https://github.com/darknao/docker-dotclear/blob/master/fpm/2.8.2/Dockerfile)
+-	[`2.8.1-fpm` (*fpm/2.8.1/Dockerfile*)](https://github.com/darknao/docker-dotclear/blob/master/fpm/2.8.1/Dockerfile)
 
 # What is Dotclear? #
 Dotclear is an open source blog publishing application distributed under the GNU GPLv2.
