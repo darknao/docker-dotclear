@@ -1,4 +1,4 @@
-FROM php:5.6-apache
+FROM php:7-apache
 
 RUN set -x; \
     apt-get update \
@@ -21,9 +21,9 @@ RUN a2enmod rewrite
 
 VOLUME /var/www/html
 
-ENV DOTCLEAR_VERSION 2.9
-ENV DOTCLEAR_DOWNLOAD_URL http://download.dotclear.org/attic/dotclear-${DOTCLEAR_VERSION}.tar.gz
-ENV DOTCLEAR_DOWNLOAD_MD5 4afae0bc5b494640a115b0ef765fa308
+ENV DOTCLEAR_VERSION 2.9.1
+ENV DOTCLEAR_DOWNLOAD_URL http://download.dotclear.org/latest/dotclear-${DOTCLEAR_VERSION}.tar.gz
+ENV DOTCLEAR_DOWNLOAD_MD5 f936b400c2d8512d1efb07a0709725d4
 
 RUN mkdir -p /usr/src/dotclear \
     && curl -fsSL -o dotclear.tar.gz "$DOTCLEAR_DOWNLOAD_URL" \
