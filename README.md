@@ -1,11 +1,11 @@
 # Supported tags and respective `Dockerfile` links #
 
--       [`2.9`, `apache`, `latest` (*apache/2.9/Dockerfile*)](https://github.com/darknao/docker-dotclear/blob/master/apache/2.9/Dockerfile)
+-	[`2.10`, `2.10.1`, `apache`, `latest` (*apache/2.10.1/Dockerfile*)](https://github.com/darknao/docker-dotclear/blob/master/apache/2.10.1/Dockerfile)
+-       [`2.9`, `2.9.1` (*apache/2.9.1/Dockerfile*)](https://github.com/darknao/docker-dotclear/blob/master/apache/2.9.1/Dockerfile)
 -       [`2.8-apache`, `2.8.2`, `2.8` (*apache/2.8.2/Dockerfile*)](https://github.com/darknao/docker-dotclear/blob/master/apache/2.8.2/Dockerfile)
--	[`2.8.1-apache`, `2.8.1` (*apache/2.8/Dockerfile*)](https://github.com/darknao/docker-dotclear/blob/master/apache/2.8/Dockerfile)
--       [`2.9-fpm`, `fpm` (*fpm/2.9/Dockerfile*)](https://github.com/darknao/docker-dotclear/blob/master/fpm/2.9/Dockerfile)
+-       [`2.10-fpm`, `fpm` (*fpm/2.10.1/Dockerfile*)](https://github.com/darknao/docker-dotclear/blob/master/fpm/2.10.1/Dockerfile)
+-       [`2.9-fpm` (*fpm/2.9.1/Dockerfile*)](https://github.com/darknao/docker-dotclear/blob/master/fpm/2.9.1/Dockerfile)
 -       [`2.8.2-fpm` (*fpm/2.8.2/Dockerfile*)](https://github.com/darknao/docker-dotclear/blob/master/fpm/2.8.2/Dockerfile)
--	[`2.8.1-fpm` (*fpm/2.8.1/Dockerfile*)](https://github.com/darknao/docker-dotclear/blob/master/fpm/2.8.1/Dockerfile)
 
 # What is Dotclear? #
 Dotclear is an open source blog publishing application distributed under the GNU GPLv2.
@@ -30,7 +30,7 @@ You can use [this configuration file](https://github.com/darknao/docker-dotclear
 
 Start the fpm container:
 
-    docker run --link mysqldb -d --name blog_fpm darknao/dotclear:2.8.1-fpm
+    docker run --link mysqldb -d --name blog_fpm darknao/dotclear:fpm
 Start nginx with a link to the fpm container (notice the **fpm** alias, it'll be used in the **fpm.conf**):
 
     docker run -d -p 80:80 \
