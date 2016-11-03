@@ -20,7 +20,7 @@ RUN docker-php-ext-install mbstring pgsql mysqli \
 VOLUME /var/www/html
 
 ENV DOTCLEAR_VERSION 2.10.3
-ENV DOTCLEAR_DOWNLOAD_URL http://download.dotclear.org/latest/dotclear-${DOTCLEAR_VERSION}.tar.gz
+ENV DOTCLEAR_DOWNLOAD_URL http://download.dotclear.org/attic/dotclear-${DOTCLEAR_VERSION}.tar.gz
 ENV DOTCLEAR_DOWNLOAD_MD5 484fde29d7094485180f732f5c484dd1
 
 RUN mkdir -p /usr/src/dotclear \
