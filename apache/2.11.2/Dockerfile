@@ -1,4 +1,4 @@
-FROM php:7-fpm
+FROM php:7-apache
 
 RUN set -x; \
     apt-get update \
@@ -17,11 +17,13 @@ RUN docker-php-ext-install mbstring pgsql mysqli \
         --with-png-dir=/usr/include/ \
     && docker-php-ext-install gd
 
+RUN a2enmod rewrite
+
 VOLUME /var/www/html
 
-ENV DOTCLEAR_VERSION 2.10.4
-ENV DOTCLEAR_DOWNLOAD_URL http://download.dotclear.org/attic/dotclear-${DOTCLEAR_VERSION}.tar.gz
-ENV DOTCLEAR_DOWNLOAD_MD5 dbb35dc77159ccafb71a7fab526dce89
+ENV DOTCLEAR_VERSION 2.11.2
+ENV DOTCLEAR_DOWNLOAD_URL http://download.dotclear.org/latest/dotclear-${DOTCLEAR_VERSION}.tar.gz
+ENV DOTCLEAR_DOWNLOAD_MD5 1ee2bd6e319823f0a926f1ae05dd27e7
 
 RUN mkdir -p /usr/src/dotclear \
     && curl -fsSL -o dotclear.tar.gz "$DOTCLEAR_DOWNLOAD_URL" \
@@ -32,6 +34,7 @@ RUN mkdir -p /usr/src/dotclear \
     && chmod -R 755 /usr/src/dotclear/public /usr/src/dotclear/cache \
     && rm -f /var/www/html/*
 
+
 ADD docker-entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
-CMD ["php-fpm"]
+CMD ["apache2-foreground"]
