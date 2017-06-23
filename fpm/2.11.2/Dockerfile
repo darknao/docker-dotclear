@@ -35,3 +35,5 @@ RUN mkdir -p /usr/src/dotclear \
 ADD docker-entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["php-fpm"]
+EXPOSE 80
+
