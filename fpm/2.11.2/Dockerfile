@@ -18,9 +18,10 @@ RUN docker-php-ext-install mbstring pgsql mysqli \
     && docker-php-ext-install gd
 
 VOLUME /var/www/html
+EXPOSE 80
 
 ENV DOTCLEAR_VERSION 2.11.2
-ENV DOTCLEAR_DOWNLOAD_URL http://download.dotclear.org/latest/dotclear-${DOTCLEAR_VERSION}.tar.gz
+ENV DOTCLEAR_DOWNLOAD_URL http://download.dotclear.org/attic/dotclear-${DOTCLEAR_VERSION}.tar.gz
 ENV DOTCLEAR_DOWNLOAD_MD5 1ee2bd6e319823f0a926f1ae05dd27e7
 
 RUN mkdir -p /usr/src/dotclear \
@@ -35,5 +36,4 @@ RUN mkdir -p /usr/src/dotclear \
 ADD docker-entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["php-fpm"]
-EXPOSE 80
 
