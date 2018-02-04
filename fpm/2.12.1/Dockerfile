@@ -3,10 +3,10 @@ FROM php:7-fpm
 RUN set -x; \
     apt-get update \
     && apt-get install -y --no-install-recommends \
-        postgresql-server-dev-9.4 \
+        postgresql-server-dev-9.6 \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
-        libpng12-dev \
+        libpng-dev \
         rsync \
     && rm -r /var/lib/apt/lists/*
 
@@ -21,7 +21,7 @@ VOLUME /var/www/html
 EXPOSE 80
 
 ENV DOTCLEAR_VERSION 2.12.1
-ENV DOTCLEAR_DOWNLOAD_URL http://download.dotclear.org/latest/dotclear-${DOTCLEAR_VERSION}.tar.gz
+ENV DOTCLEAR_DOWNLOAD_URL http://download.dotclear.org/attic/dotclear-${DOTCLEAR_VERSION}.tar.gz
 ENV DOTCLEAR_DOWNLOAD_MD5 56bd500421b5d75f4ff923711ac9718c
 
 RUN mkdir -p /usr/src/dotclear \
