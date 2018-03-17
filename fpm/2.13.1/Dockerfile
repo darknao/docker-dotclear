@@ -1,4 +1,4 @@
-FROM php:7-fpm
+FROM arm32v7/php:7-fpm
 
 RUN set -x; \
     apt-get update \
