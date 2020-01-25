@@ -17,6 +17,8 @@ RUN docker-php-ext-install mbstring pgsql mysqli \
         --with-jpeg \
     && docker-php-ext-install gd
 
+RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
+
 VOLUME /var/www/html
 EXPOSE 80
 

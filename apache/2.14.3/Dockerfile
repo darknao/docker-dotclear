@@ -19,6 +19,8 @@ RUN docker-php-ext-install mbstring pgsql mysqli \
 
 RUN a2enmod rewrite
 
+RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
+
 VOLUME /var/www/html
 EXPOSE 80
 
