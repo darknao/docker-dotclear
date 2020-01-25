@@ -3,7 +3,7 @@ FROM php:7-fpm
 RUN set -x; \
     apt-get update \
     && apt-get install -y --no-install-recommends \
-        postgresql-server-dev-9.6 \
+        postgresql-server-dev-all \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
         libpng-dev \
