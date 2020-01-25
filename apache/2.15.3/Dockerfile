@@ -7,14 +7,14 @@ RUN set -x; \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
         libpng-dev \
+	libonig-dev \
         rsync \
     && rm -r /var/lib/apt/lists/*
 
 RUN docker-php-ext-install mbstring pgsql mysqli \
     && docker-php-ext-configure gd \
-        --with-freetype-dir=/usr/include/ \
-        --with-jpeg-dir=/usr/include/ \
-        --with-png-dir=/usr/include/ \
+        --with-freetype \
+        --with-jpeg \
     && docker-php-ext-install gd
 
 RUN a2enmod rewrite
