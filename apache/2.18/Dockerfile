@@ -24,9 +24,9 @@ RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 VOLUME /var/www/html
 EXPOSE 80
 
-ENV DOTCLEAR_VERSION 2.16.9
-ENV DOTCLEAR_DOWNLOAD_URL http://download.dotclear.org/attic/dotclear-${DOTCLEAR_VERSION}.tar.gz
-ENV DOTCLEAR_DOWNLOAD_MD5 694c2b9e89f36f0cb7527dfa2a539a2e
+ENV DOTCLEAR_VERSION 2.18
+ENV DOTCLEAR_DOWNLOAD_URL http://download.dotclear.org/latest/dotclear-${DOTCLEAR_VERSION}.tar.gz
+ENV DOTCLEAR_DOWNLOAD_MD5 cee2b63a6fb5dd3c2a6655ba4863e1f7
 
 RUN mkdir -p /usr/src/dotclear \
     && curl -fsSL -o dotclear.tar.gz "$DOTCLEAR_DOWNLOAD_URL" \
