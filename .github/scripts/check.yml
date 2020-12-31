@@ -1,0 +1,97 @@
+---
+- name: check dotclear version
+  hosts: localhost
+  gather_facts: no
+  tasks:
+  - set_fact:
+  #   versions_xml: "{{ lookup('file', 'versions.xml') }}"
+      versions_xml: "{{ lookup('url', 'https://download.dotclear.org/versions.xml', split_lines=False) }}"
+      github_path: "{{ lookup('env', 'GITHUB_WORKSPACE') }}"
+      repo_path: "{{ github_path | default(lookup('env', 'PWD')) }}"
+     
+  - xml:
+      xmlstring: "{{ versions_xml }}"
+      xpath: "/versions/subject/release[@name='stable']"
+      content: "attribute"
+    register: versions
+
+  - debug:
+      msg:
+        - "{{ versions.matches.0.release.name }}"
+        - "{{ versions.matches.0.release.version }}"
+        - "{{ versions.matches.0.release.checksum }}"
+
+  - name: set github env variables
+    when: lookup('env', 'GITHUB_ENV')
+    lineinfile:
+      path: "{{ lookup('env', 'GITHUB_ENV') }}"
+      line: "{{ item.var }}={{ item.value }}"
+      create: yes
+    loop:
+    - var: release_version
+      value: "{{ versions.matches.0.release.version }}"
+    - var: release_info
+      value: "{{ versions.matches.0.release.info }}"
+
+  - name: check if version exist
+    stat:
+      path: "{{ (repo_path, 'apache', versions.matches.0.release.version, 'Dockerfile') | path_join }}"
+    register: existing_dockerfile
+
+  - block:
+    - debug:
+        msg: "New version : {{ versions.matches.0.release.version }}"
+
+    - name: Create a directory if it does not exist
+      file:
+        path: "{{ (repo_path, 'apache', version) | path_join }}"
+        state: directory
+        mode: '0755'
+
+    - name: Dockerfile
+      template:
+        src: apache_container.j2
+        dest: "{{ (repo_path, 'apache', version, 'Dockerfile') | path_join }}"
+
+    - name: entrypoint
+      template:
+        src: docker-entrypoint.sh
+        dest: "{{ (repo_path, 'apache', version, 'docker-entrypoint.sh') | path_join }}"
+        mode: '0755'
+
+    - name: Create a directory if it does not exist
+      file:
+        path: "{{ (repo_path, 'fpm', version) | path_join }}"
+        state: directory
+        mode: '0755'
+
+    - name: Dockerfile
+      template:
+        src: fpm_container.j2
+        dest: "{{ (repo_path, 'fpm', version, 'Dockerfile') | path_join }}"
+
+    - name: entrypoint
+      template:
+        src: docker-entrypoint.sh
+        dest: "{{ (repo_path, 'fpm', version, 'docker-entrypoint.sh') | path_join }}"
+        mode: '0755'
+
+    - name: list all tags
+      script:
+        cmd: gen.py
+        chdir: "{{ repo_path }}"
+      register: gen_out
+
+    - set_fact:
+        tag_list: "{{ gen_out.stdout | from_json }}"
+
+    - name: regen README.md
+      template:
+        src: README.md.j2
+        dest: "{{ (repo_path, 'README.md') | path_join }}"
+        mode: '0644'
+
+    when: not existing_dockerfile.stat.exists
+    vars:
+      version: "{{ versions.matches.0.release.version }}"
+      md5: "{{ versions.matches.0.release.checksum }}"

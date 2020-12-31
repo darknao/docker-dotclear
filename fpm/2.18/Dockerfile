@@ -9,6 +9,7 @@ RUN set -x; \
         libpng-dev \
 	libonig-dev \
         rsync \
+        unzip \
     && rm -r /var/lib/apt/lists/*
 
 RUN docker-php-ext-install mbstring pgsql mysqli \
@@ -23,14 +24,14 @@ VOLUME /var/www/html
 EXPOSE 80
 
 ENV DOTCLEAR_VERSION 2.18
-ENV DOTCLEAR_DOWNLOAD_URL http://download.dotclear.org/latest/dotclear-${DOTCLEAR_VERSION}.tar.gz
-ENV DOTCLEAR_DOWNLOAD_MD5 cee2b63a6fb5dd3c2a6655ba4863e1f7
+ENV DOTCLEAR_DOWNLOAD_URL http://download.dotclear.org/latest/dotclear-${DOTCLEAR_VERSION}.zip
+ENV DOTCLEAR_DOWNLOAD_MD5 a2407635e895d12d1e1aadb73a0f7128
 
 RUN mkdir -p /usr/src/dotclear \
-    && curl -fsSL -o dotclear.tar.gz "$DOTCLEAR_DOWNLOAD_URL" \
-    && echo "$DOTCLEAR_DOWNLOAD_MD5 dotclear.tar.gz" | md5sum -c - \
-    && tar -xzf dotclear.tar.gz -C /usr/src/dotclear --strip-components=2 \
-    && rm dotclear.tar.gz \
+    && curl -fsSL -o dotclear.zip "$DOTCLEAR_DOWNLOAD_URL" \
+    && echo "$DOTCLEAR_DOWNLOAD_MD5 dotclear.zip" | md5sum -c - \
+    && unzip -d /usr/src dotclear.zip
+    && rm dotclear.zip \
     && chown -R www-data:www-data /usr/src/dotclear \
     && chmod -R 755 /usr/src/dotclear/public /usr/src/dotclear/cache \
     && rm -f /var/www/html/*
