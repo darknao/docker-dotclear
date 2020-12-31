@@ -30,7 +30,7 @@ ENV DOTCLEAR_DOWNLOAD_MD5 a2407635e895d12d1e1aadb73a0f7128
 RUN mkdir -p /usr/src/dotclear \
     && curl -fsSL -o dotclear.zip "$DOTCLEAR_DOWNLOAD_URL" \
     && echo "$DOTCLEAR_DOWNLOAD_MD5 dotclear.zip" | md5sum -c - \
-    && unzip -d /usr/src dotclear.zip
+    && unzip -d /usr/src dotclear.zip \
     && rm dotclear.zip \
     && chown -R www-data:www-data /usr/src/dotclear \
     && chmod -R 755 /usr/src/dotclear/public /usr/src/dotclear/cache \
