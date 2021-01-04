@@ -7,7 +7,7 @@ RUN set -x; \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
         libpng-dev \
-	libonig-dev \
+        libonig-dev \
         rsync \
         unzip \
     && rm -r /var/lib/apt/lists/*

@@ -7,10 +7,13 @@ from pprint import pprint
 
 parser = ArgumentParser()
 parser.add_argument("--set-output", default=False, dest='set_output', action='store_true', help="Set Github actions output")
+parser.add_argument("--prime", default=False, dest='prime', action='store_true', help="use only base image, for caching")
+parser.add_argument("--no-prime", default=False, dest='noprime', action='store_true', help="ignore base image")
 opts = parser.parse_args()
 
 dockerfiles = glob.glob("*/*/Dockerfile")
 l = []
+known_variant = []
 for df in dockerfiles:
   variant,version,_ = df.split('/')
   l.append({
@@ -24,7 +27,6 @@ latest = l[-1]['version']
 #print("latest is %s" % (latest,))
 if opts.set_output:
   strategy = {
-    "max-parallel": 1,
     "fail-fast": False,
     "matrix": {
       "include": [],
@@ -44,6 +46,12 @@ for im in l:
       tags.append(im['variant'])
 
   if opts.set_output:
+    if im['variant'] not in known_variant:
+      known_variant.append(im['variant'])
+      if opts.noprime:
+        continue
+    elif opts.prime:
+      continue
     strategy['matrix']['include'].append(
       {
         "name": "%s-%s" % (im['version'], im['variant']),

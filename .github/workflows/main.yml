@@ -49,16 +49,20 @@ jobs:
     name: Generate build jobs
     runs-on: ubuntu-latest
     outputs:
-      strategy: ${{ steps.gen.outputs.strategy }}
+      strategy_cache: ${{ steps.gencache.outputs.strategy }}
+      strategy_all: ${{ steps.genall.outputs.strategy }}
     steps:
     - uses: actions/checkout@v2
-    - id: gen
+    - id: gencache
       name: Get images list
-      run: python .github/scripts/gen.py --set-output
+      run: python .github/scripts/gen.py --set-output --prime
+    - id: genall
+      name: Get images list
+      run: python .github/scripts/gen.py --set-output --no-prime
 
-  build:
+  build_cache:
     needs: gen
-    strategy: ${{ fromJson(needs.gen.outputs.strategy) }}
+    strategy: ${{ fromJson(needs.gen.outputs.strategy_cache) }}
     name: ${{ matrix.name }}
     runs-on: ${{ matrix.os }}
     steps:
@@ -86,4 +90,35 @@ jobs:
         push: true
         tags: ${{ matrix.tags }}
         cache-to: type=registry,ref=darknao/dotclear:${{ matrix.cache }},mode=max
+        cache-from: type=registry,ref=darknao/dotclear:${{ matrix.cache }}
+
+  build:
+    needs: gen
+    strategy: ${{ fromJson(needs.gen.outputs.strategy_all) }}
+    name: ${{ matrix.name }}
+    runs-on: ${{ matrix.os }}
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v1
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+
+    - name: Login to DockerHub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+    - name: Build and push
+      uses: docker/build-push-action@v2
+      with:
+        context: ${{ matrix.context }}
+        file: ${{ matrix.dockerfile }}
+        platforms: linux/amd64,linux/arm/v7
+        push: true
+        tags: ${{ matrix.tags }}
         cache-from: type=registry,ref=darknao/dotclear:${{ matrix.cache }}
