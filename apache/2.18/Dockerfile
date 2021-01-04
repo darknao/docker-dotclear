@@ -7,9 +7,9 @@ RUN set -x; \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
         libpng-dev \
-	libonig-dev \
+        libonig-dev \
         rsync \
-	unzip \
+        unzip \
     && rm -r /var/lib/apt/lists/*
 
 RUN docker-php-ext-install mbstring pgsql mysqli \
