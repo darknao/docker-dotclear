@@ -92,8 +92,8 @@ jobs:
         cache-to: type=registry,ref=darknao/dotclear:${{ matrix.cache }},mode=max
         cache-from: type=registry,ref=darknao/dotclear:${{ matrix.cache }}
 
-  build:
-    needs: gen
+  build_all:
+    needs: [gen, build_cache]
     strategy: ${{ fromJson(needs.gen.outputs.strategy_all) }}
     name: ${{ matrix.name }}
     runs-on: ${{ matrix.os }}
