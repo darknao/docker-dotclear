@@ -1,6 +1,8 @@
 # Supported tags and respective `Dockerfile` links #
-- [`2.18.1`, `latest`, `apache` (*apache/2.18.1/Dockerfile*)](https://github.com/darknao/docker-dotclear/blob/master/apache/2.18.1/Dockerfile)
-- [`2.18.1-fpm`, `fpm` (*fpm/2.18.1/Dockerfile*)](https://github.com/darknao/docker-dotclear/blob/master/fpm/2.18.1/Dockerfile)
+- [`2.19`, `latest`, `apache` (*apache/2.19/Dockerfile*)](https://github.com/darknao/docker-dotclear/blob/master/apache/2.19/Dockerfile)
+- [`2.19-fpm`, `fpm` (*fpm/2.19/Dockerfile*)](https://github.com/darknao/docker-dotclear/blob/master/fpm/2.19/Dockerfile)
+- [`2.18.1` (*apache/2.18.1/Dockerfile*)](https://github.com/darknao/docker-dotclear/blob/master/apache/2.18.1/Dockerfile)
+- [`2.18.1-fpm` (*fpm/2.18.1/Dockerfile*)](https://github.com/darknao/docker-dotclear/blob/master/fpm/2.18.1/Dockerfile)
 - [`2.18` (*apache/2.18/Dockerfile*)](https://github.com/darknao/docker-dotclear/blob/master/apache/2.18/Dockerfile)
 - [`2.18-fpm` (*fpm/2.18/Dockerfile*)](https://github.com/darknao/docker-dotclear/blob/master/fpm/2.18/Dockerfile)
 - [`2.16.9` (*apache/2.16.9/Dockerfile*)](https://github.com/darknao/docker-dotclear/blob/master/apache/2.16.9/Dockerfile)
