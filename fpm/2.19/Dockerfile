@@ -24,7 +24,7 @@ VOLUME /var/www/html
 EXPOSE 80
 
 ENV DOTCLEAR_VERSION 2.19
-ENV DOTCLEAR_DOWNLOAD_URL http://download.dotclear.org/latest/dotclear-${DOTCLEAR_VERSION}.zip
+ENV DOTCLEAR_DOWNLOAD_URL http://download.dotclear.org/attic/dotclear-${DOTCLEAR_VERSION}.zip
 ENV DOTCLEAR_DOWNLOAD_MD5 0196c31b76f4086f9d717d92bc1371a8
 
 RUN mkdir -p /usr/src/dotclear \
