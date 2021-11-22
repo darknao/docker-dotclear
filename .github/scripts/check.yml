@@ -42,6 +42,24 @@
     - debug:
         msg: "New version : {{ versions.matches.0.release.version }}"
 
+    - name: get all Dockerfile
+      find:
+        paths: 
+        - "{{ (repo_path, 'apache') | path_join }}"
+        - "{{ (repo_path, 'fpm') | path_join }}"
+        recurse: True
+        patterns: Dockerfile
+      register: all_dockerfiles
+
+    - name: Move previous versions to the attic
+      lineinfile:
+        regexp: '^ENV DOTCLEAR_DOWNLOAD_URL'
+        line: 'ENV DOTCLEAR_DOWNLOAD_URL http://download.dotclear.org/attic/dotclear-${DOTCLEAR_VERSION}.zip'
+        path: "{{ item.path }}"
+      loop: "{{ all_dockerfiles.files }}"
+      loop_control:
+        label: "{{ item.path }}"
+
     - name: Create a directory if it does not exist
       file:
         path: "{{ (repo_path, 'apache', version) | path_join }}"
