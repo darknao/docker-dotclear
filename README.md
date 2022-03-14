@@ -1,6 +1,8 @@
 # Supported tags and respective `Dockerfile` links #
-- [`2.21.2-fpm`, `fpm` (*fpm/2.21.2/Dockerfile*)](https://github.com/darknao/docker-dotclear/blob/master/fpm/2.21.2/Dockerfile)
-- [`2.21.2`, `latest`, `apache` (*apache/2.21.2/Dockerfile*)](https://github.com/darknao/docker-dotclear/blob/master/apache/2.21.2/Dockerfile)
+- [`2.21.3-fpm`, `fpm` (*fpm/2.21.3/Dockerfile*)](https://github.com/darknao/docker-dotclear/blob/master/fpm/2.21.3/Dockerfile)
+- [`2.21.3`, `latest`, `apache` (*apache/2.21.3/Dockerfile*)](https://github.com/darknao/docker-dotclear/blob/master/apache/2.21.3/Dockerfile)
+- [`2.21.2-fpm` (*fpm/2.21.2/Dockerfile*)](https://github.com/darknao/docker-dotclear/blob/master/fpm/2.21.2/Dockerfile)
+- [`2.21.2` (*apache/2.21.2/Dockerfile*)](https://github.com/darknao/docker-dotclear/blob/master/apache/2.21.2/Dockerfile)
 - [`2.21.1-fpm` (*fpm/2.21.1/Dockerfile*)](https://github.com/darknao/docker-dotclear/blob/master/fpm/2.21.1/Dockerfile)
 - [`2.21.1` (*apache/2.21.1/Dockerfile*)](https://github.com/darknao/docker-dotclear/blob/master/apache/2.21.1/Dockerfile)
 - [`2.20.1-fpm` (*fpm/2.20.1/Dockerfile*)](https://github.com/darknao/docker-dotclear/blob/master/fpm/2.20.1/Dockerfile)
