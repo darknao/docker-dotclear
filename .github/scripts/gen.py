@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 import glob
 import json
-from distutils.version import StrictVersion
+import os
+from packaging.version import Version
 from argparse import ArgumentParser
 from pprint import pprint
 
@@ -22,7 +23,7 @@ for df in dockerfiles:
     'file': df,
     })
 
-l.sort(key=lambda f: StrictVersion(f['version']))
+l.sort(key=lambda f: Version(f['version']))
 latest = l[-1]['version']
 #print("latest is %s" % (latest,))
 if opts.set_output:
@@ -71,6 +72,7 @@ for im in l:
 
 #pprint(strategy)
 if opts.set_output:
-  print("::set-output name=strategy::%s" % (json.dumps(strategy),))
+  with open(os.getenv("GITHUB_OUTPUT"), 'a') as f:
+    f.write("strategy=%s" % (json.dumps(strategy),))
 else:
   print(json.dumps(strategy))
